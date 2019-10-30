@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/limlance99/cs165api/database"
 )
 
@@ -29,10 +28,6 @@ func main() {
 		v1.GET("/businesses", database.GetBusinesses)
 		v1.GET("/civilstatus", database.GetCivilStatus)
 		v1.GET("/dlaf", database.GetDLAF)
-	}
-
-	if err := godotenv.Load(); err != nil {
-		panic(err)
 	}
 
 	port := os.Getenv("PORT")
