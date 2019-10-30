@@ -1,1 +1,1 @@
-web:bin\cs165api.exe
+web: bin/cs165api
