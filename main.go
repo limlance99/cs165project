@@ -17,8 +17,8 @@ func main() {
 	router.Use(cors.Default())
 
 	// place all vue routes here
-	router.Use(static.Serve("/", static.LocalFile("./frontend/dist", true)))
 	router.Use(static.Serve("/routes", static.LocalFile("./frontend/dist", true)))
+	router.Use(static.Serve("/", static.LocalFile("./frontend/dist", true)))
 
 	api := router.Group("/api/")
 	{
