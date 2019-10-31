@@ -14,6 +14,11 @@ var Db *gorm.DB
 func Connect() {
 	var err error
 
+	// uncomment this out during local testing
+	// if err = godotenv.Load(); err != nil {
+	// 	panic(err)
+	// }
+
 	dbURL := os.Getenv("DATABASE_URL")
 
 	Db, err = gorm.Open("postgres", dbURL)
