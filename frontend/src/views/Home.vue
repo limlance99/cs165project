@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="yo" src="../assets/turtle.jpg">
+    <!-- <img alt="yo" src="../assets/turtle.jpg"> -->
     <LandingPage />
   </div>
 </template>
