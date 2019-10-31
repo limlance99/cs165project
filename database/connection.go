@@ -5,7 +5,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // for postgres
-	"github.com/joho/godotenv"
 )
 
 // Db is the pointer to our database
@@ -15,9 +14,6 @@ var Db *gorm.DB
 func Connect() {
 	var err error
 
-	if err = godotenv.Load(); err != nil {
-		panic(err)
-	}
 	dbURL := os.Getenv("DATABASE_URL")
 
 	Db, err = gorm.Open("postgres", dbURL)

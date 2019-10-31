@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/limlance99/cs165api/database"
 )
@@ -14,6 +15,10 @@ func main() {
 
 	router := gin.Default()
 	router.Use(cors.Default())
+
+	// place all vue routes here
+	router.Use(static.Serve("/", static.LocalFile("./frontend/dist", true)))
+	router.Use(static.Serve("/about", static.LocalFile("./frontend/dist", true)))
 
 	api := router.Group("/api/")
 	{
@@ -27,6 +32,7 @@ func main() {
 		api.GET("/personinformation", database.GetPersonInformation)
 		api.GET("/businesses", database.GetBusinesses)
 		api.GET("/civilstatus", database.GetCivilStatus)
+		api.GET("/dlaf/:id", database.GetOneDLAF)
 		api.GET("/dlaf", database.GetDLAF)
 	}
 

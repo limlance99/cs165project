@@ -181,3 +181,16 @@ func GetDLAF(c *gin.Context) {
 
 	returnData(c, forms)
 }
+
+// GetOneDLAF gets one form
+func GetOneDLAF(c *gin.Context) {
+	var form dlaf
+	appNo := c.Param("id")
+
+	Db.Where("appno = ?", appNo).First(&form)
+	if form.AppNo == 0 {
+		setErrorMessage(c)
+		return
+	}
+	returnData(c, form)
+}
