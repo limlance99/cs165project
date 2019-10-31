@@ -1,15 +1,22 @@
 <template>
-  <div id="about">
-    <h1>API routes</h1>
-    <ul>
-      <li v-for="link in links" :key="link">
-        <a :href="link.link" target="_blank">{{link.title}}</a>
-      </li>
-    </ul>
-  </div>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="12">
+        <v-row align="center" justify="center" class="grey lighten-5" style="height: 300px;">
+          <v-card class="ma-3 pa-6" outlined v-for="item in allForms" :key="item.appno" tile>
+            <v-card-content>
+              {{ item }}
+            </v-card-content>
+          </v-card>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+
+import {mapGetters, mapActions} from 'vuex';
 export default {
   name: "Routes",
   data: () => {
@@ -59,6 +66,15 @@ export default {
         { link: "https://cs165lim.herokuapp.com/api/dlaf", title: "DLAF" }
       ]
     };
+  },
+  computed: {
+    ...mapGetters(['allForms'])
+  },
+  methods: {
+    ...mapActions(['getDLAFs'])
+  },
+  mounted() {
+    this.getDLAFs();
   }
 };
 </script>
