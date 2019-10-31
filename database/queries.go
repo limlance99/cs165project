@@ -6,6 +6,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// setErrorMessage is used to return errors when not found
+func setErrorMessage(c *gin.Context) {
+	c.JSON(
+		http.StatusNotFound,
+		gin.H{
+			"status":  http.StatusNotFound,
+			"message": "nothing found",
+		},
+	)
+}
+
+// returnData back to the request
+func returnData(c *gin.Context, data interface{}) {
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"status": http.StatusOK,
+			"data":   data,
+		},
+	)
+}
+
 // GetRestrictions gets all the restrictions
 func GetRestrictions(c *gin.Context) {
 	var restricts []restrictions
@@ -13,23 +35,11 @@ func GetRestrictions(c *gin.Context) {
 	Db.Find(&restricts)
 
 	if len(restricts) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   restricts,
-		},
-	)
+	returnData(c, restricts)
 }
 
 // GetConditions gets all the conditions
@@ -39,23 +49,11 @@ func GetConditions(c *gin.Context) {
 	Db.Find(&conds)
 
 	if len(conds) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   conds,
-		},
-	)
+	returnData(c, conds)
 }
 
 // GetResAndConds gets all the combinations of res and conds
@@ -65,23 +63,11 @@ func GetResAndConds(c *gin.Context) {
 	Db.Find(&randcs)
 
 	if len(randcs) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   randcs,
-		},
-	)
+	returnData(c, randcs)
 }
 
 // GetBodyType gets all the body types
@@ -91,23 +77,11 @@ func GetBodyType(c *gin.Context) {
 	Db.Find(&bodytypes)
 
 	if len(bodytypes) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   bodytypes,
-		},
-	)
+	returnData(c, bodytypes)
 }
 
 // GetPersonalDetails gets all the details of a person
@@ -117,23 +91,11 @@ func GetPersonalDetails(c *gin.Context) {
 	Db.Find(&pdetails)
 
 	if len(pdetails) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   pdetails,
-		},
-	)
+	returnData(c, pdetails)
 }
 
 // GetFamilyRelations gets all the relationships with family
@@ -143,23 +105,11 @@ func GetFamilyRelations(c *gin.Context) {
 	Db.Find(&relations)
 
 	if len(relations) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   relations,
-		},
-	)
+	returnData(c, relations)
 }
 
 // GetNationality gets the nationalities
@@ -169,23 +119,11 @@ func GetNationality(c *gin.Context) {
 	Db.Find(&nationalities)
 
 	if len(nationalities) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   nationalities,
-		},
-	)
+	returnData(c, nationalities)
 }
 
 // GetPersonInformation gets all the info of persons
@@ -195,23 +133,11 @@ func GetPersonInformation(c *gin.Context) {
 	Db.Find(&infos)
 
 	if len(infos) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   infos,
-		},
-	)
+	returnData(c, infos)
 }
 
 // GetBusinesses gets all the business details
@@ -221,23 +147,11 @@ func GetBusinesses(c *gin.Context) {
 	Db.Find(&business)
 
 	if len(business) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries yet",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   business,
-		},
-	)
+	returnData(c, business)
 }
 
 // GetCivilStatus gets all the Civil Statuses
@@ -247,23 +161,11 @@ func GetCivilStatus(c *gin.Context) {
 	Db.Find(&statuses)
 
 	if len(statuses) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   statuses,
-		},
-	)
+	returnData(c, statuses)
 }
 
 // GetDLAF gets all the forms
@@ -273,21 +175,9 @@ func GetDLAF(c *gin.Context) {
 	Db.Find(&forms)
 
 	if len(forms) <= 0 {
-		c.JSON(
-			http.StatusNotFound,
-			gin.H{
-				"status":  http.StatusNotFound,
-				"message": "no entries",
-			},
-		)
+		setErrorMessage(c)
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   forms,
-		},
-	)
+	returnData(c, forms)
 }
