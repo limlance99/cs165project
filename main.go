@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/limlance99/cs165api/database"
 )
@@ -16,10 +15,12 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	// place all vue routes here
-	router.Use(static.Serve("/routes", static.LocalFile("./public", true)))
-	router.Use(static.Serve("/", static.LocalFile("./public", true)))
+	// serves all frontend routes (ie the non api calls)
+	router.NoRoute(func(c *gin.Context) {
+		c.File("./public/index.html")
+	})
 
+	// api calls to database
 	api := router.Group("/api/")
 	{
 		api.GET("/restrictions", database.GetRestrictions)
