@@ -3,6 +3,3 @@ bin/
 frontend/node_modules/
 
 deploy.PS1
-
-frontend/*
-!frontend/dist
