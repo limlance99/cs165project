@@ -3,9 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/contrib/static"
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/limlance99/cs165api/database"
 )
 
@@ -13,17 +12,17 @@ func main() {
 	database.Connect()
 	defer database.Db.Close()
 
-	router := gin.Default()
-	router.Use(cors.Default())
+	router := echo.New()
+	router.Pre(middleware.AddTrailingSlash())
+	router.Use(middleware.Logger())
+	router.Use(middleware.Recover())
+	router.Use(middleware.CORS())
 
-	// place all vue routes here
-	router.Use(static.Serve("/", static.LocalFile("./frontend/dist/", true)))
-	router.Use(static.Serve("/routes", static.LocalFile("./frontend/dist/", true)))
-	// router.NoRoute(func(c *gin.Context) {
-	// 	c.File("./frontend/dist/index.html")
-	// })
+	router.Any("/*", func(c echo.Context) error {
+		return c.File("frontend/dist/index.html")
+	})
 
-	api := router.Group("/api/")
+	api := router.Group("/api")
 	{
 		api.GET("/restrictions", database.GetRestrictions)
 		api.GET("/conditions", database.GetConditions)
@@ -37,12 +36,15 @@ func main() {
 		api.GET("/civilstatus", database.GetCivilStatus)
 		api.GET("/dlaf/:id", database.GetOneDLAF)
 		api.GET("/dlaf", database.GetDLAF)
+		api.GET("/", func(c echo.Context) error {
+			return c.String(200, "Hello World")
+		})
 	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3000"
+		port = "1323"
 	}
 
-	router.Run(":" + port)
+	router.Logger.Fatal(router.Start(":" + port))
 }

@@ -1,196 +1,186 @@
 package database
 
 import (
+	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo"
 )
 
+type errorMessage struct {
+	Message string `json:"message"`
+}
+
 // setErrorMessage is used to return errors when not found
-func setErrorMessage(c *gin.Context) {
-	c.JSON(
-		http.StatusNotFound,
-		gin.H{
-			"status":  http.StatusNotFound,
-			"message": "nothing found",
-		},
-	)
+func setErrorMessage(c echo.Context) error {
+	message := &errorMessage{
+		Message: "Nothing Found",
+	}
+	return c.JSON(http.StatusNotFound, message)
 }
 
 // returnData back to the request
-func returnData(c *gin.Context, data interface{}) {
-	c.JSON(
+func returnData(c echo.Context, data interface{}) error {
+	return c.JSON(
 		http.StatusOK,
-		gin.H{
-			"status": http.StatusOK,
-			"data":   data,
-		},
+		data,
 	)
 }
 
 // GetRestrictions gets all the restrictions
-func GetRestrictions(c *gin.Context) {
+func GetRestrictions(c echo.Context) error {
 	var restricts []restrictions
 
 	Db.Find(&restricts)
 
 	if len(restricts) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, restricts)
+	return returnData(c, restricts)
 }
 
 // GetConditions gets all the conditions
-func GetConditions(c *gin.Context) {
+func GetConditions(c echo.Context) error {
 	var conds []conditions
 
 	Db.Find(&conds)
 
 	if len(conds) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, conds)
+	return returnData(c, conds)
 }
 
 // GetResAndConds gets all the combinations of res and conds
-func GetResAndConds(c *gin.Context) {
+func GetResAndConds(c echo.Context) error {
 	var randcs []resandconds
 
 	Db.Find(&randcs)
 
 	if len(randcs) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, randcs)
+	return returnData(c, randcs)
 }
 
 // GetBodyType gets all the body types
-func GetBodyType(c *gin.Context) {
+func GetBodyType(c echo.Context) error {
 	var bodytypes []bodytype
 
 	Db.Find(&bodytypes)
 
 	if len(bodytypes) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, bodytypes)
+	return returnData(c, bodytypes)
 }
 
 // GetPersonalDetails gets all the details of a person
-func GetPersonalDetails(c *gin.Context) {
+func GetPersonalDetails(c echo.Context) error {
 	var pdetails []personaldetails
 
 	Db.Find(&pdetails)
 
 	if len(pdetails) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, pdetails)
+	return returnData(c, pdetails)
 }
 
 // GetFamilyRelations gets all the relationships with family
-func GetFamilyRelations(c *gin.Context) {
+func GetFamilyRelations(c echo.Context) error {
 	var relations []familyrelations
 
 	Db.Find(&relations)
 
 	if len(relations) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, relations)
+	return returnData(c, relations)
 }
 
 // GetNationality gets the nationalities
-func GetNationality(c *gin.Context) {
+func GetNationality(c echo.Context) error {
 	var nationalities []nationality
 
 	Db.Find(&nationalities)
 
 	if len(nationalities) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, nationalities)
+	return returnData(c, nationalities)
 }
 
 // GetPersonInformation gets all the info of persons
-func GetPersonInformation(c *gin.Context) {
+func GetPersonInformation(c echo.Context) error {
 	var infos []personinformation
 
 	Db.Find(&infos)
 
 	if len(infos) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, infos)
+	return returnData(c, infos)
 }
 
 // GetBusinesses gets all the business details
-func GetBusinesses(c *gin.Context) {
+func GetBusinesses(c echo.Context) error {
 	var business []businesses
 
 	Db.Find(&business)
 
 	if len(business) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, business)
+	return returnData(c, business)
 }
 
 // GetCivilStatus gets all the Civil Statuses
-func GetCivilStatus(c *gin.Context) {
+func GetCivilStatus(c echo.Context) error {
 	var statuses []civilstatus
 
 	Db.Find(&statuses)
 
 	if len(statuses) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, statuses)
+	return returnData(c, statuses)
 }
 
 // GetDLAF gets all the forms
-func GetDLAF(c *gin.Context) {
+func GetDLAF(c echo.Context) error {
 	var forms []dlaf
 
 	Db.Find(&forms)
 
 	if len(forms) <= 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
 
-	returnData(c, forms)
+	return returnData(c, forms)
 }
 
 // GetOneDLAF gets one form
-func GetOneDLAF(c *gin.Context) {
+func GetOneDLAF(c echo.Context) error {
 	var form dlaf
 	appNo := c.Param("id")
 
+	fmt.Println("I got here")
+
 	Db.Where("appno = ?", appNo).First(&form)
 	if form.AppNo == 0 {
-		setErrorMessage(c)
-		return
+		return setErrorMessage(c)
 	}
-	returnData(c, form)
+	fmt.Println(form)
+	return returnData(c, form)
 }
