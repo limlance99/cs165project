@@ -1,5 +1,2 @@
 bin/
 .env
-frontend/node_modules/
-
-deploy.PS1
