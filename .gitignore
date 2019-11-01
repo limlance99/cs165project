@@ -1,6 +1,6 @@
 bin/
 .env
 
-frontend/
-!frontend/dist/
+frontend/*
+!frontend/dist
 *.PS1
