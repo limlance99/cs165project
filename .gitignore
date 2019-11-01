@@ -2,5 +2,4 @@ bin/
 .env
 
 frontend/*
-!frontend/dist
 *.PS1
