@@ -17,8 +17,6 @@ func main() {
 	router.Use(middleware.Recover())
 	router.Use(middleware.CORS())
 
-	router.Static("/", "dist")
-
 	api := router.Group("/api")
 	{
 		api.GET("/restrictions", database.GetRestrictions)
