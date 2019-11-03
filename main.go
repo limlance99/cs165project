@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/labstack/echo"
@@ -18,6 +19,7 @@ func main() {
 	router.Use(middleware.CORS())
 
 	router.GET("/*", func(c echo.Context) error {
+		fmt.Println("hello")
 		return c.File("public/index.html")
 	})
 
