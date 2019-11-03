@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/labstack/echo"
@@ -18,10 +17,11 @@ func main() {
 	router.Use(middleware.Recover())
 	router.Use(middleware.CORS())
 
-	router.GET("/*", func(c echo.Context) error {
-		fmt.Println("hello")
-		return c.File("../public/index.html")
-	})
+	router.Use(middleware.StaticWithConfig(middleware.StaticConfig{
+		Skipper: middleware.DefaultSkipper,
+		Root:    "public",
+		HTML5:   true,
+	}))
 
 	api := router.Group("/api")
 	{

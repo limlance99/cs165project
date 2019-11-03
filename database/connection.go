@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/jinzhu/gorm"
@@ -15,11 +16,6 @@ var Db *gorm.DB
 func Connect() {
 	var err error
 
-	// uncomment this out during local testing
-	// if err = godotenv.Load(); err != nil {
-	// 	panic(err)
-	// }
-
 	_ = godotenv.Load()
 
 	dbURL := os.Getenv("DATABASE_URL")
@@ -27,7 +23,7 @@ func Connect() {
 	Db, err = gorm.Open("postgres", dbURL)
 
 	if err != nil {
-		//panic(err)
+		fmt.Println(err)
 	}
 	Db.AutoMigrate(
 		&restrictions{},
