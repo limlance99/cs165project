@@ -20,7 +20,7 @@ func main() {
 
 	router.GET("/*", func(c echo.Context) error {
 		fmt.Println("hello")
-		return c.File("public/index.html")
+		return c.File("../public/index.html")
 	})
 
 	api := router.Group("/api")

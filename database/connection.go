@@ -27,7 +27,7 @@ func Connect() {
 	Db, err = gorm.Open("postgres", dbURL)
 
 	if err != nil {
-		panic(err)
+		//panic(err)
 	}
 	Db.AutoMigrate(
 		&restrictions{},
