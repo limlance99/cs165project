@@ -17,6 +17,10 @@ func main() {
 	router.Use(middleware.Recover())
 	router.Use(middleware.CORS())
 
+	router.GET("/*", func(c echo.Context) error {
+		return c.File("public/index.html")
+	})
+
 	api := router.Group("/api")
 	{
 		api.GET("/restrictions", database.GetRestrictions)
