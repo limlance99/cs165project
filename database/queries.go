@@ -80,6 +80,14 @@ func GetBodyType(c echo.Context) error {
 	return returnData(c, bodytypes)
 }
 
+// PostBodyType posts a new row
+func PostBodyType(c echo.Context) error {
+	body := resandconds{}
+	c.Bind(&body)
+	Db.Create(&body)
+	return returnData(c, body)
+}
+
 // GetPersonalDetails gets all the details of a person
 func GetPersonalDetails(c echo.Context) error {
 	var pdetails []personaldetails

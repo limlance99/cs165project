@@ -29,6 +29,7 @@ func main() {
 		api.GET("/conditions", database.GetConditions)
 		api.GET("/resandconds", database.GetResAndConds)
 		api.GET("/bodytype", database.GetBodyType)
+		// api.POST("/bodytype", database.PostBodyType)
 		api.GET("/personaldetails", database.GetPersonalDetails)
 		api.GET("/familyrelations", database.GetFamilyRelations)
 		api.GET("/nationality", database.GetNationality)
@@ -37,9 +38,6 @@ func main() {
 		api.GET("/civilstatus", database.GetCivilStatus)
 		api.GET("/dlaf/:id", database.GetOneDLAF)
 		api.GET("/dlaf", database.GetDLAF)
-		api.GET("/easteregg", func(c echo.Context) error {
-			return c.String(200, "Save the turtles!")
-		})
 	}
 
 	port := os.Getenv("PORT")
