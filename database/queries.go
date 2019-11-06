@@ -21,9 +21,10 @@ func setErrorMessage(c echo.Context) error {
 
 // returnData back to the request
 func returnData(c echo.Context, data interface{}) error {
-	return c.JSON(
+	return c.JSONPretty(
 		http.StatusOK,
 		data,
+		"   ",
 	)
 }
 
