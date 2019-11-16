@@ -19,7 +19,7 @@ func main() {
 
 	router.Use(middleware.StaticWithConfig(middleware.StaticConfig{
 		Skipper: middleware.DefaultSkipper,
-		Root:    "public",
+		Root:    "frontend/dist",
 		HTML5:   true,
 	}))
 
