@@ -23,8 +23,8 @@ CREATE TABLE Conditions (
 
 CREATE TABLE ResAndConds (
 	LicenseNo varchar(13),
-	ResCode varchar(8) REFERENCES Restrictions(ResCode) ON DELETE CASCADE,
-	CondCode varchar(5) REFERENCES Conditions(CondCode) ON DELETE CASCADE,
+	ResCode varchar(8) REFERENCES Restrictions(ResCode),
+	CondCode varchar(5) REFERENCES Conditions(CondCode),
 	PRIMARY KEY (LicenseNo)
 );
 

@@ -62,7 +62,7 @@ const getters = {
 const actions = {
   async fetchTable({ commit }, route) {
     var response = await axios.get(`/api/${route}`);
-    commit('setTableData', response.data);
+    commit('setTableData', response.data.data);
   }
 }
 

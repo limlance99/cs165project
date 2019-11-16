@@ -5,9 +5,12 @@
       <b-navbar-item tag="router-link" to="/">
                 Home
             </b-navbar-item>
-            <b-navbar-item tag="router-link" to="/routes">
-                API
+            <b-navbar-item tag="router-link" to="/businesses">
+                Businesses
             </b-navbar-item>
+            <!-- <b-navbar-item tag="router-link" to="/routes">
+                API
+            </b-navbar-item> -->
         </template>
     </b-navbar>
     <router-view />

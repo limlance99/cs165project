@@ -11,6 +11,9 @@ type errorMessage struct {
 	Message string `json:"message"`
 }
 
+// H is a thing that lets me send data
+type H map[string]interface{}
+
 // setErrorMessage is used to return errors when not found
 func setErrorMessage(c echo.Context) error {
 	message := &errorMessage{
@@ -80,14 +83,6 @@ func GetBodyType(c echo.Context) error {
 	return returnData(c, bodytypes)
 }
 
-// PostBodyType posts a new row
-func PostBodyType(c echo.Context) error {
-	body := resandconds{}
-	c.Bind(&body)
-	Db.Create(&body)
-	return returnData(c, body)
-}
-
 // GetPersonalDetails gets all the details of a person
 func GetPersonalDetails(c echo.Context) error {
 	var pdetails []personaldetails
@@ -143,13 +138,46 @@ func GetPersonInformation(c echo.Context) error {
 // GetBusinesses gets all the business details
 func GetBusinesses(c echo.Context) error {
 	var business []businesses
-
-	Db.Find(&business)
+	var count int
+	Db.Find(&business).Count(&count)
 
 	if len(business) <= 0 {
 		return setErrorMessage(c)
 	}
 
+	return returnData(c, H{
+		"data":  business,
+		"count": count,
+	})
+}
+
+// PostBusiness posts a new row for businesses
+func PostBusiness(c echo.Context) error {
+	body := businesses{}
+	c.Bind(&body)
+	Db.Create(&body)
+	return returnData(c, body)
+}
+
+// UpdateBusiness updates the details of a business
+func UpdateBusiness(c echo.Context) error {
+	body := businesses{}
+	business := businesses{}
+	c.Bind(&body)
+	// Db.Where("businessname=?", body.BusinessName).First(&business).Update(Db.Model())
+	// Db.Save(&business)
+	Db.Model(&business).Updates(body)
+
+	return returnData(c, body)
+}
+
+// DeleteBusiness deletes a business
+func DeleteBusiness(c echo.Context) error {
+	businessName := c.Param("businessname")
+	business := businesses{
+		BusinessName: businessName,
+	}
+	Db.Delete(&business)
 	return returnData(c, business)
 }
 
