@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-field>
-      <b-button type="is-dark" outlined expanded>Add a new Business</b-button>
+      <b-button type="is-dark" outlined expanded
+      @click="$buefy.toast.open(`Will implement this soon.`)">Add a new Business</b-button>
     </b-field>
     <section>
       <b-table
