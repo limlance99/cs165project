@@ -69,8 +69,13 @@ const actions = {
     }
   },
   async postBusiness({ commit }, data) {
+    var business = {
+      businessname: data.businessname.trim(),
+      businessno: data.businessno.trim(),
+      businessadd: data.businessadd.trim(),
+    }
     try {
-      var response = await axios.post(`${localTestURL}/api/businesses`, data);
+      var response = await axios.post(`${localTestURL}/api/businesses`, business);
       commit("addBusiness", response.data);
       return 500;
     } catch(err) {
@@ -80,6 +85,7 @@ const actions = {
     }
   },
   async deleteBusiness({ commit }, businessname) {
+    businessname = businessname.trim();
     var response = await axios.delete(`${localTestURL}/api/businesses/${businessname}`)
     console.log(response.data)
     commit("deleteBusiness", response.data.businessname)

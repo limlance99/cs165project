@@ -187,8 +187,13 @@ func DeleteBusiness(c echo.Context) error {
 	business := businesses{
 		BusinessName: businessName,
 	}
-	Db.Delete(&business)
-	return returnData(c, business)
+	duplicateCheck := businesses{}
+	Db.Where("businessname = ?", businessName).Find(&duplicateCheck)
+	if duplicateCheck.BusinessName != "" {
+		Db.Delete(&business)
+		return returnData(c, business)
+	}
+	return setErrorMessage(c)
 }
 
 // GetCivilStatus gets all the Civil Statuses

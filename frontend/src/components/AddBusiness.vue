@@ -7,7 +7,7 @@
       <section class="modal-card-body">
         <b-field label="Business Name"
         :type="{'is-danger' : NameError}">
-          <b-input v-model="newBusiness.businessname" maxlength="200"></b-input>
+          <b-input v-model="newBusiness.businessname" maxlength="100"></b-input>
         </b-field>
 
         <b-field
@@ -19,7 +19,7 @@
         </b-field>
 
         <b-field label="Address">
-          <b-input v-model="newBusiness.businessadd" maxlength="200"></b-input>
+          <b-input v-model="newBusiness.businessadd" maxlength="100"></b-input>
         </b-field>
       </section>
       <footer class="modal-card-foot">
