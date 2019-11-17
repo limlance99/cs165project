@@ -156,27 +156,22 @@ func PostBusiness(c echo.Context) error {
 	body := businesses{}
 	c.Bind(&body)
 
-	duplicateCheck := businesses{}
-	Db.Where("businessname = ?", body.BusinessName).Find(&duplicateCheck)
-	if duplicateCheck.BusinessName != "" {
+	if err := Db.Create(&body).Error; err != nil {
+		fmt.Println(err)
 		message := &errorMessage{
 			Message: "Already exists!",
 		}
 		return c.JSON(http.StatusConflict, message)
 	}
-
-	Db.Create(&body)
 	return returnData(c, body)
 }
 
 // UpdateBusiness updates the details of a business
 func UpdateBusiness(c echo.Context) error {
 	body := businesses{}
-	business := businesses{}
+
 	c.Bind(&body)
-	// Db.Where("businessname=?", body.BusinessName).First(&business).Update(Db.Model())
-	// Db.Save(&business)
-	Db.Model(&business).Updates(body)
+	Db.Save(&body)
 
 	return returnData(c, body)
 }
@@ -187,13 +182,10 @@ func DeleteBusiness(c echo.Context) error {
 	business := businesses{
 		BusinessName: businessName,
 	}
-	duplicateCheck := businesses{}
-	Db.Where("businessname = ?", businessName).Find(&duplicateCheck)
-	if duplicateCheck.BusinessName != "" {
-		Db.Delete(&business)
-		return returnData(c, business)
+	if err := Db.Where("businessname = ?", businessName).Delete(businesses{}).Error; err != nil {
+		return setErrorMessage(c)
 	}
-	return setErrorMessage(c)
+	return returnData(c, business)
 }
 
 // GetCivilStatus gets all the Civil Statuses

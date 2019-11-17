@@ -35,7 +35,7 @@ func main() {
 		api.GET("/personinformation", database.GetPersonInformation)
 		api.GET("/businesses", database.GetBusinesses)
 		api.POST("/businesses", database.PostBusiness)
-		api.PUT("/businesses/:businessname", database.UpdateBusiness)
+		api.PUT("/businesses", database.UpdateBusiness)
 		api.DELETE("/businesses/:businessname", database.DeleteBusiness)
 		api.GET("/civilstatus", database.GetCivilStatus)
 		api.GET("/dlaf/:id", database.GetOneDLAF)
