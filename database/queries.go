@@ -139,7 +139,7 @@ func GetPersonInformation(c echo.Context) error {
 func GetBusinesses(c echo.Context) error {
 	var business []businesses
 	var count int
-	Db.Find(&business).Count(&count)
+	Db.Order("businessname").Find(&business).Count(&count)
 
 	if len(business) <= 0 {
 		return setErrorMessage(c)

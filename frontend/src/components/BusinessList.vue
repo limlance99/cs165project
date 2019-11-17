@@ -49,14 +49,38 @@
 
         <template slot="detail" slot-scope="props">
           <article class="media">
+            <b-loading :active.sync="editLoading"></b-loading>
             <div class="media-content">
               <div class="content">
-                <p>
-                  <strong>{{ props.row.businessname }}</strong>
-                </p>Reminder to add an update feature.
-                <b-button type="is-danger" @click="removeBusiness(props.row.businessname)">
-                  Delete
-                </b-button>
+                <b-field
+                  label="Contact Number"
+                  :type="{'is-danger' : NumberError}"
+                  :message="{'Please input numbers only.': NumberError}"
+                >
+                  <b-input v-model="updatedNumber" maxlength="20"></b-input>
+                </b-field>
+
+                <b-field label="Address">
+                  <b-input v-model="updatedAddress" maxlength="100"></b-input>
+                </b-field>
+
+                <b-field grouped>
+                  <b-field>
+                    <b-button
+                      type="is-danger"
+                      @click="removeBusiness(props.row.businessname)"
+                    >Delete</b-button>
+                  </b-field>
+                  <b-field position="is-right">
+                    <p class="control">
+                      <b-button
+                        type="is-success"
+                        :disabled="(updatedNumber == props.row.businessno && updatedAddress == props.row.businessadd) || NumberError"
+                        @click="updateBusiness(props.row.businessname)"
+                      >Save Changes</b-button>
+                    </p>
+                  </b-field>
+                </b-field>
               </div>
             </div>
           </article>
@@ -72,7 +96,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import AddBusiness from './AddBusiness';
+import AddBusiness from "./AddBusiness";
 export default {
   components: {
     AddBusiness
@@ -82,14 +106,27 @@ export default {
       data: [],
       isComponentModalActive: false,
       openedDetails: [],
-      tableLoading: true
+      tableLoading: true,
+      updatedNumber: "",
+      updatedAddress: "",
+      editLoading: false,
+      NumberError: false
     };
   },
   computed: {
     ...mapGetters(["ListofBusinesses"])
   },
+  watch: {
+    updatedNumber(newVal) {
+      if (newVal != "") {
+        this.NumberError = !newVal.match(/^[0-9]+$/);
+      } else {
+        this.NumberError = false;
+      }
+    }
+  },
   methods: {
-    ...mapActions(["fetchTable", "deleteBusiness"]),
+    ...mapActions(["fetchTable", "putBusiness", "deleteBusiness"]),
     toggle(row) {
       this.$refs.table.toggleDetails(row);
     },
@@ -97,8 +134,25 @@ export default {
       console.log(thing);
     },
     closeOtherDetails(row) {
-      this.$buefy.toast.open(`Loading ${row.businessname}`);
       this.openedDetails = [row.businessname];
+      this.$buefy.toast.open(`Loading ${row.businessname}`);
+      this.editLoading = true;
+      this.updatedNumber = row.businessno;
+      this.updatedAddress = row.businessadd;
+      this.editLoading = false;
+    },
+    async updateBusiness(businessname) {
+      this.tableLoading = true;
+      var updatedVersion = {
+        businessname: businessname.trim(),
+        businessno: this.updatedNumber.trim(),
+        businessadd: this.updatedAddress.trim()
+      };
+      await this.putBusiness(updatedVersion);
+      this.openedDetails = [];
+      this.data = this.ListofBusinesses;
+      this.tableLoading = false;
+      this.$buefy.toast.open(`${businessname} has been updated!`);
     },
     async removeBusiness(businessname) {
       this.tableLoading = true;

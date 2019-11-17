@@ -84,6 +84,10 @@ const actions = {
       }
     }
   },
+  async putBusiness({commit}, data) {
+    var response = await axios.put(`${localTestURL}/api/businesses`, data);
+    commit("updateBusiness", response.data)
+  },
   async deleteBusiness({ commit }, businessname) {
     businessname = businessname.trim();
     var response = await axios.delete(`${localTestURL}/api/businesses/${businessname}`)
@@ -94,7 +98,24 @@ const actions = {
 
 const mutations = {
   setBusinesses: (state, data) => state.businessList = data,
-  addBusiness: (state, data) => state.businessList.push(data),
+  addBusiness: (state, data) => {
+
+    for (let i = 0; i < state.businessList.length; i++) {
+      if (state.businessList[i].businessname.toLowerCase() > data.businessname.toLowerCase()) {
+        state.businessList.splice(i, 0, data);
+        break;
+      }
+    }
+  },
+  updateBusiness: (state, data) => {
+    for (let i = 0; i < state.businessList.length; i++) {
+      if (state.businessList[i].businessname == data.businessname) {
+        state.businessList[i].businessno = data.businessno;
+        state.businessList[i].businessadd = data.businessadd;
+        break;
+      } 
+    }
+  },
   deleteBusiness: (state, name) => state.businessList = state.businessList.filter(x => x.businessname != name),
 }
 export default new Vuex.Store({
