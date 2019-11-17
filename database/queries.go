@@ -155,6 +155,16 @@ func GetBusinesses(c echo.Context) error {
 func PostBusiness(c echo.Context) error {
 	body := businesses{}
 	c.Bind(&body)
+
+	duplicateCheck := businesses{}
+	Db.Where("businessname = ?", body.BusinessName).Find(&duplicateCheck)
+	if duplicateCheck.BusinessName != "" {
+		message := &errorMessage{
+			Message: "Already exists!",
+		}
+		return c.JSON(http.StatusConflict, message)
+	}
+
 	Db.Create(&body)
 	return returnData(c, body)
 }

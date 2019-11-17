@@ -4,6 +4,8 @@ import axios from "axios"
 
 Vue.use(Vuex)
 
+const localTestURL = ""
+
 const state = {
   allRoutes: [
     {
@@ -51,23 +53,43 @@ const state = {
       link: "dlaf"
     },
   ],
-  tableData: []
+  businessList: []
 }
 
 const getters = {
   apiRoutes: (state) => state.allRoutes,
-  allTheData: (state) => state.tableData,
+  ListofBusinesses: (state) => state.businessList,
 }
 
 const actions = {
   async fetchTable({ commit }, route) {
-    var response = await axios.get(`/api/${route}`);
-    commit('setTableData', response.data.data);
+    var response = await axios.get(`${localTestURL}/api/${route}`);
+    if (route == "businesses") {
+      commit('setBusinesses', response.data.data);
+    }
+  },
+  async postBusiness({ commit }, data) {
+    try {
+      var response = await axios.post(`${localTestURL}/api/businesses`, data);
+      commit("addBusiness", response.data);
+      return 500;
+    } catch(err) {
+      if (err.response.status == 409) {
+        return 409;
+      }
+    }
+  },
+  async deleteBusiness({ commit }, businessname) {
+    var response = await axios.delete(`${localTestURL}/api/businesses/${businessname}`)
+    console.log(response.data)
+    commit("deleteBusiness", response.data.businessname)
   }
 }
 
 const mutations = {
-  setTableData: (state, data) => state.tableData = data,
+  setBusinesses: (state, data) => state.businessList = data,
+  addBusiness: (state, data) => state.businessList.push(data),
+  deleteBusiness: (state, name) => state.businessList = state.businessList.filter(x => x.businessname != name),
 }
 export default new Vuex.Store({
   state,

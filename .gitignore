@@ -4,3 +4,5 @@ bin/
 frontend/*
 !frontend/src
 *.PS1
+
+Dockerfile

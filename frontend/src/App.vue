@@ -26,20 +26,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-</style>
-
-<style lang="scss">
 @import "~bulma/sass/utilities/_all";
 
 // Set your colors
-$primary: #A3B9C9;
+$primary: rgb(110, 156, 1);
 $primary-invert: findColorInvert($primary);
 $twitter: #4099ff;
 $twitter-invert: findColorInvert($twitter);

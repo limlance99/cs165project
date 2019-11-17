@@ -69,7 +69,7 @@ type (
 	}
 
 	businesses struct {
-		BusinessName string `json:"businessname" gorm:"column:businessname"`
+		BusinessName string `json:"businessname" gorm:"column:businessname;PRIMARY_KEY"`
 		BusinessNo   string `json:"businessno" gorm:"column:businessno"`
 		BusinessAdd  string `json:"businessadd" gorm:"column:businessadd"`
 	}

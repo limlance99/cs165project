@@ -29,7 +29,6 @@ func main() {
 		api.GET("/conditions", database.GetConditions)
 		api.GET("/resandconds", database.GetResAndConds)
 		api.GET("/bodytype", database.GetBodyType)
-		// api.POST("/bodytype", database.PostBodyType)
 		api.GET("/personaldetails", database.GetPersonalDetails)
 		api.GET("/familyrelations", database.GetFamilyRelations)
 		api.GET("/nationality", database.GetNationality)
