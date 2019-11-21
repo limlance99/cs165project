@@ -67,22 +67,7 @@
     export default {
         data() {
             return {
-                data: [
-                    {
-                        fullname: "Lance Lim",
-                        businessname: "Jollibee",
-                        licenseno: "123123123",
-                        businessno: "010101",
-
-                    },
-                    {
-                        fullname: "Nikola Jokic",
-                        businessname: "McDonalds",
-                        licenseno: "123123432",
-                        businessno: "104932",
-
-                    },
-                ],
+                data: [],
                 openedDetails: [],
                 tableLoading: false,
             }
