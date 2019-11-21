@@ -2,7 +2,7 @@
   <div>
     <b-field>
       <b-button
-        type="is-dark"
+        type="is-primary"
         outlined
         expanded
         @click="isComponentModalActive = true"
