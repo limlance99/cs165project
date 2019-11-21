@@ -54,8 +54,11 @@
             </template>
 
             <template slot="empty">
-                <p>
-                    Nothing Here.
+                <p v-if="tableLoading">
+                    Loading...
+                </p>
+                <p v-else>
+                    Nothing here.
                 </p>
             </template>
         </b-table>
@@ -80,7 +83,7 @@
         },
 
         async mounted() {
-            this.tableLoading = false;
+            this.tableLoading = true;
             await this.fetchTable("people");
             this.data = this.ListofPeople;
             this.tableLoading = false;

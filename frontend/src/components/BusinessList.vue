@@ -87,7 +87,12 @@
         </template>
 
         <template slot="empty">
-          <p>Nothing Here.</p>
+          <p v-if="tableLoading">
+                    Loading...
+                </p>
+                <p v-else>
+                    Nothing here.
+                </p>
         </template>
       </b-table>
     </section>
