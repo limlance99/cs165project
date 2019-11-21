@@ -11,6 +11,9 @@
             <!-- <b-navbar-item tag="router-link" to="/routes">
                 API
             </b-navbar-item> -->
+            <b-navbar-item tag="router-link" to="/people">
+              People
+            </b-navbar-item>
         </template>
     </b-navbar>
     <router-view />

@@ -4,25 +4,29 @@
             :data="data"
             ref="table"
             detailed
-            detail-key="id"
+            detail-key="licenseno"
             @details-open="(row, index) => $buefy.toast.open(`Loading ${row.user.fullName}`)"
             :loading="tableLoading"
             :opened-detailed="openedDetails"
             >
 
             <template slot-scope="props">
-                <b-table-column field="id" label="ID" width="40" numeric>
-                    {{ props.row.id }}
-                </b-table-column>
-
                 <b-table-column field="user.fullName" label="Name">
                     <template>
-                        {{ props.row.user.fullName }}
+                        {{ props.row.fullname }}
                     </template> 
                 </b-table-column>
 
-                <b-table-column field="user.licenseNo" label="License Number">
-                    {{ props.row.user.licenseNo }}
+                <b-table-column field="licenseno" label="License Number">
+                    {{ props.row.licenseno }}
+                </b-table-column>
+
+                <b-table-column field="businessname" label="Business">
+                    {{ props.row.businessname }}
+                </b-table-column>
+
+                <b-table-column field="businessno" label="Business Contact Number">
+                    {{ props.row.businessno }}
                 </b-table-column>
             </template>
 
@@ -36,8 +40,8 @@
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong>{{ props.row.user.first_name }} {{ props.row.user.last_name }}</strong>
-                                <small>@{{ props.row.user.first_name }}</small>
+                                <strong>{{ props.row.fullname }} {{ props.row.licenseno }}</strong>
+                                <small>@{{ props.row.businessno }}</small>
                                 <small>31m</small>
                                 <br>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -59,37 +63,42 @@
 </template>
 
 <script>
-
+    import { mapGetters, mapActions } from 'vuex';
     export default {
         data() {
             return {
                 data: [
                     {
-                        id: 1,
-                        user: {
-                            fullName: "Lance Lim",
-                            licenseNo: "NA1-123-12312"
-                        }
+                        fullname: "Lance Lim",
+                        businessname: "Jollibee",
+                        licenseno: "123123123",
+                        businessno: "010101",
+
                     },
                     {
-                        id: 2,
-                        user: {
-                            fullName: "Nikola Jokic",
-                            licenseNo: "NA1-123-12313"
-                        }
+                        fullname: "Nikola Jokic",
+                        businessname: "McDonalds",
+                        licenseno: "123123432",
+                        businessno: "104932",
+
                     },
                 ],
                 openedDetails: [],
                 tableLoading: false,
             }
         },
+        computed: {
+            ...mapGetters(['ListofPeople']),    
+        },
         methods: {
-            toggle(row) {
-                this.$refs.table.toggleDetails(row)
-            },
-            print(thing) {
-                console.log(thing)
-            }
+            ...mapActions(['fetchTable']),
+        },
+
+        async mounted() {
+            this.tableLoading = false;
+            await this.fetchTable("people");
+            this.data = this.ListofPeople;
+            this.tableLoading = false;
         }
     }
 </script>

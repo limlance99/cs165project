@@ -188,6 +188,20 @@ func DeleteBusiness(c echo.Context) error {
 	return returnData(c, business)
 }
 
+// JoinedTable testing joins
+func JoinedTable(c echo.Context) error {
+	type thing struct {
+		Licenseno    string `json:"licenseno"`
+		Fullname     string `json:"fullname"`
+		Businessname string `json:"businessname"`
+		Businessno   string `json:"businessno"`
+	}
+	var results []thing
+	Db.Table("businesses").Select("licenseno, fullname, businessname, businessno").Joins("NATURAL JOIN dlaf").Joins("NATURAL JOIN personinformation").Scan(&results)
+
+	return returnData(c, results)
+}
+
 // GetCivilStatus gets all the Civil Statuses
 func GetCivilStatus(c echo.Context) error {
 	var statuses []civilstatus

@@ -53,12 +53,14 @@ const state = {
       link: "dlaf"
     },
   ],
-  businessList: []
+  businessList: [],
+  peopleList: []
 }
 
 const getters = {
   apiRoutes: (state) => state.allRoutes,
   ListofBusinesses: (state) => state.businessList,
+  ListofPeople: (state) => state.peopleList,
 }
 
 const actions = {
@@ -66,6 +68,8 @@ const actions = {
     var response = await axios.get(`${localTestURL}/api/${route}`);
     if (route == "businesses") {
       commit('setBusinesses', response.data.data);
+    } else if (route == "people") {
+      commit('setPeople', response.data);
     }
   },
   async postBusiness({ commit }, data) {
@@ -93,11 +97,12 @@ const actions = {
     var response = await axios.delete(`${localTestURL}/api/businesses/${businessname}`)
     console.log(response.data)
     commit("deleteBusiness", response.data.businessname)
-  }
+  },
 }
 
 const mutations = {
   setBusinesses: (state, data) => state.businessList = data,
+  setPeople: (state, data) => state.peopleList = data,
   addBusiness: (state, data) => {
 
     for (let i = 0; i < state.businessList.length; i++) {

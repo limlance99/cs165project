@@ -40,6 +40,7 @@ func main() {
 		api.GET("/civilstatus", database.GetCivilStatus)
 		api.GET("/dlaf/:id", database.GetOneDLAF)
 		api.GET("/dlaf", database.GetDLAF)
+		api.GET("/people", database.JoinedTable)
 	}
 
 	port := os.Getenv("PORT")
