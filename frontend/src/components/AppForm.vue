@@ -26,24 +26,21 @@
       </b-step-item>
 
       <template slot="navigation" slot-scope="{previous, next}">
-        <b-field grouped>
+        <div class="buttons">
           <b-button
             outlined
             type="is-danger"
-            icon-pack="fas"
-            icon-left="backward"
             :disabled="previous.disabled"
             @click.prevent="previous.action"
           >Previous</b-button>
+
           <b-button
             outlined
             type="is-success"
-            icon-pack="fas"
-            icon-right="forward"
             :disabled="next.disabled"
             @click.prevent="next.action"
           >Next</b-button>
-        </b-field>
+        </div>
       </template>
     </b-steps>
   </section>
