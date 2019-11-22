@@ -7,7 +7,7 @@
         Welcome to my CS165 project.
       </h2>
       <p>
-        There isn't much right now since I'm still working on it, but check back soon for updates :D
+        The purpose of this simple website is to simulate a way for people to add to a list of businesses in a database. 
       </p>
     </div>
   </section>

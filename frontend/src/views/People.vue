@@ -14,7 +14,7 @@
 <script>
 import PeopleList from '../components/PeopleList';
 export default {
-  name: "home",
+  name: "People",
   components: {
       PeopleList
   }

@@ -24,6 +24,11 @@ const routes = [
     component: () => import('@/views/People.vue'),
   },
   {
+    path: '/applynow',
+    name: "Apply Now",
+    component: () => import('@/views/ApplyNow.vue'),
+  },
+  {
     path: '*',
     name: "NotFound",
     component: () => import('@/views/NotFound.vue'),

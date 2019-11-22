@@ -15,7 +15,7 @@
 <script>
 import BusinessList from '../components/BusinessList';
 export default {
-  name: "home",
+  name: "Businesses",
   components: {
       BusinessList
   }

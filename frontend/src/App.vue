@@ -14,6 +14,9 @@
             <b-navbar-item tag="router-link" to="/people">
               People
             </b-navbar-item>
+            <b-navbar-item tag="router-link" to="/applynow">
+              Apply Now
+            </b-navbar-item>
         </template>
     </b-navbar>
     <router-view />
