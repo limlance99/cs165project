@@ -26,9 +26,9 @@
       <div class="hero-body">
         <section class="section">
           <div class="container">
-              <figure class="image is-128x128 center">
-                <img :src="logo" />
-              </figure>
+            <figure class="image is-128x128 center">
+              <img :src="logo" />
+            </figure>
             <h1 class="title has-text-centered">Driver's License Application: The Website</h1>
             <h2 class="subtitle has-text-centered">An easy way to apply for a Driver's License.</h2>
           </div>
@@ -36,6 +36,21 @@
       </div>
     </section>
     <router-view />
+    <footer class="footer">
+        <figure class="image is-64x64 center">
+          <img :src="turtle" alt="Turtle" />
+        </figure>
+      <div class="content has-text-centered">
+        <p>
+          <strong>A project</strong> by
+          <a href="https://limlance99.github.io" target="_blank">Lance Lim</a>. The source code can be found
+          <a
+            href="https://github.com/limlance99/cs165project"
+            target="_blank"
+          >here</a>.
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -43,7 +58,8 @@
 export default {
   data() {
     return {
-      logo: require("@/assets/lto.png")
+      logo: require("@/assets/lto.png"),
+      turtle: require("@/assets/turtlez.png")
     };
   }
 };
