@@ -132,6 +132,8 @@ $link-invert: $primary-invert;
 $link-focus-border: $primary;
 $navbar-dropdown-background-color: $black;
 
+$footer-padding: 3rem 1.5rem 3rem;
+
 .center {
   display: block;
   margin-left: auto;
