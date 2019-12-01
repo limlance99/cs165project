@@ -2,7 +2,7 @@
   <div>
     <b-field>
       <b-button
-        type="is-primary"
+        type="is-primary-inverted"
         outlined
         expanded
         @click="isComponentModalActive = true"
@@ -27,7 +27,6 @@
         @details-open="(row) => closeOtherDetails(row)"
         :loading="tableLoading"
         :opened-detailed="openedDetails"
-        class="is-whoabackground"
       >
         <template slot-scope="props">
           <b-table-column field="businessname" label="Name">{{ props.row.businessname }}</b-table-column>
@@ -68,14 +67,14 @@
                 <b-field grouped>
                   <b-field>
                     <b-button
-                      type="is-danger"
+                      type="is-primary-inverted"
                       @click="removeBusiness(props.row.businessname)"
                     >Delete</b-button>
                   </b-field>
                   <b-field position="is-right">
                     <p class="control">
                       <b-button
-                        type="is-success"
+                        type="is-primary"
                         :disabled="(updatedNumber == props.row.businessno && updatedAddress == props.row.businessadd) || NumberError"
                         @click="updateBusiness(props.row.businessname)"
                       >Save Changes</b-button>

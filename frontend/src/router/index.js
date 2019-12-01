@@ -8,26 +8,26 @@ const routes = [
     name: 'home',
     component: () => import('@/views/Home.vue')
   },
-  // {
-  //   path: '/routes',
-  //   name: 'Routes',
-  //   component: () => import('@/views/Routes.vue'),
-  // },
-  // {
-  //   path: '/businesses',
-  //   name: "Businesses",
-  //   component: () => import('@/views/Businesses.vue'),
-  // },
-  // {
-  //   path: '/people',
-  //   name: "People",
-  //   component: () => import('@/views/People.vue'),
-  // },
-  // {
-  //   path: '/applynow',
-  //   name: "Apply Now",
-  //   component: () => import('@/views/ApplyNow.vue'),
-  // },
+  {
+    path: '/routes',
+    name: 'Routes',
+    component: () => import('@/views/Routes.vue'),
+  },
+  {
+    path: '/businesses',
+    name: "Businesses",
+    component: () => import('@/views/Businesses.vue'),
+  },
+  {
+    path: '/people',
+    name: "People",
+    component: () => import('@/views/People.vue'),
+  },
+  {
+    path: '/applynow',
+    name: "Apply Now",
+    component: () => import('@/views/ApplyNow.vue'),
+  },
   {
     path: '*',
     name: "NotFound",
