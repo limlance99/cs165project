@@ -16,7 +16,7 @@
       aria-role="dialog"
       aria-modal
     >
-      <AddBusiness></AddBusiness>
+      <AddBusiness />
     </b-modal>
     <section>
       <b-table
@@ -101,10 +101,9 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import AddBusiness from "./AddBusiness";
 export default {
   components: {
-    AddBusiness
+    AddBusiness: () => import("./AddBusiness"),
   },
   data() {
     return {
@@ -168,6 +167,7 @@ export default {
     }
   },
   async mounted() {
+    this.tableLoading = true;
     await this.fetchTable("businesses");
     this.data = this.ListofBusinesses;
     this.tableLoading = false;

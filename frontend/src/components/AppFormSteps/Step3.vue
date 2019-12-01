@@ -2,7 +2,7 @@
   <section>
     <div class="columns is-desktop">
       <div class="column">
-        <b-field label="Civil Status">
+        <b-field :label-position="labelPosition" label="Civil Status">
           <b-select>
             <option value="Single">Single</option>
             <option value="Married">Married</option>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="column">
-        <b-field label="Hair">
+        <b-field :label-position="labelPosition" label="Hair">
           <b-select>
             <option value="Black">Black</option>
             <option value="Brown">Brown</option>
@@ -24,7 +24,7 @@
       </div>
 
       <div class="column">
-        <b-field label="Eyes">
+        <b-field :label-position="labelPosition" label="Eyes">
           <b-select>
             <option value="Black">Black</option>
             <option value="Brown">Brown</option>
@@ -33,7 +33,7 @@
         </b-field>
       </div>
       <div class="column">
-        <b-field label="Built">
+        <b-field :label-position="labelPosition" label="Built">
           <b-select>
             <option value="Light">Light</option>
             <option value="Medium">Medium</option>
@@ -42,7 +42,7 @@
         </b-field>
       </div>
       <div class="column">
-        <b-field label="Complexion">
+        <b-field :label-position="labelPosition" label="Complexion">
           <b-select>
             <option value="Light">Light</option>
             <option value="Medium">Fair</option>
@@ -55,5 +55,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      labelPosition: 'on-border',
+    }
+  }
+};
 </script>

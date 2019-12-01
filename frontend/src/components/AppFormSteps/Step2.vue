@@ -2,7 +2,7 @@
   <section>
     <div class="columns is-desktop">
       <div class="column">
-        <b-field label="Type of Application">
+        <b-field :label-position="labelPosition" label="Type of Application">
           <b-select>
             <option value="New">New</option>
             <option value="Delinquent/Dormant License">Delinquent/Dormant License</option>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="column">
-        <b-field label="Type of License Applied For">
+        <b-field :label-position="labelPosition" label="Type of License Applied For">
           <b-select>
             <option value="Student Permit">Student Permit</option>
             <option value="Non-Professional">Non-Professional</option>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="column">
-        <b-field label="Educational Attainment">
+        <b-field :label-position="labelPosition" label="Educational Attainment">
           <b-select>
             <option value="Informal Schooling">Informal Schooling</option>
             <option value="Elementary">Elementary</option>
@@ -45,7 +45,7 @@
 
     <div class="columns is-desktop">
       <div class="column">
-        <b-field label="Driving Skill Acquired or will be Acquired Through">
+        <b-field :label-position="labelPosition" label="Driving Skill Acquired or will be Acquired Through">
           <b-select>
             <option value="Driving School">Driving School</option>
             <option value="Licensed Private Person">Licensed Private Person</option>
@@ -53,13 +53,13 @@
         </b-field>
       </div>
       <div class="column">
-        <b-field label="Blood Type">
+        <b-field :label-position="labelPosition" label="Blood Type">
           <b-input maxlength="5"></b-input>
         </b-field>
       </div>
 
       <div class="column">
-        <b-field label="Organ Donor">
+        <b-field :label-position="labelPosition" label="Organ Donor">
           <b-select>
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -71,5 +71,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      labelPosition: 'on-border',
+    }
+  }
+};
 </script>

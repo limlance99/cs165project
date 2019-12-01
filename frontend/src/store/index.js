@@ -4,7 +4,7 @@ import axios from "axios"
 
 Vue.use(Vuex)
 
-const localTestURL = ""
+const localTestURL = "http://localhost:1323"
 
 const state = {
   allRoutes: [
@@ -60,6 +60,13 @@ const state = {
 const getters = {
   apiRoutes: (state) => state.allRoutes,
   ListofBusinesses: (state) => state.businessList,
+  ListofBusinessNames: (state) => {
+    var names = [];
+    for (let i = 0; i < state.businessList.length; i++) {
+      names.push(state.businessList[i].businessname)
+    }
+    return names;
+  },
   ListofPeople: (state) => state.peopleList,
 }
 

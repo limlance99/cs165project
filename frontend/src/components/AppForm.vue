@@ -22,7 +22,13 @@
       </b-step-item>
 
       <b-step-item label="Finish" disabled>
-        <h1 class="title has-text-centered">Finish</h1>Wow thank you for going through the whole thing. This doesn't work yet though so sorry for wasting your time.
+        <section class="section">
+          <div class="container">
+            <h1 class="title has-text-centered">Hello</h1>
+            <h2 class="subtitle">Nothing happened :((</h2>
+            <p>Wow thank you for going through the whole thing. This doesn't work yet though so sorry for wasting your time.</p>
+          </div>
+        </section>
       </b-step-item>
 
       <template slot="navigation" slot-scope="{previous, next}">
@@ -47,16 +53,12 @@
 </template>
 
 <script>
-import Step1 from "./AppFormSteps/Step1";
-import Step2 from "./AppFormSteps/Step2";
-import Step3 from "./AppFormSteps/Step3";
-import Step4 from "./AppFormSteps/Step4";
 export default {
   components: {
-    Step1,
-    Step2,
-    Step3,
-    Step4
+    Step1: () => import("./AppFormSteps/Step1"),
+    Step2: () => import("./AppFormSteps/Step2"),
+    Step3: () => import("./AppFormSteps/Step3"),
+    Step4: () => import("./AppFormSteps/Step4")
   },
   data() {
     return {
