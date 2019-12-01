@@ -13,32 +13,47 @@
                 <span></span>
               </span>
             </div>
-            <div id="navbarMenuHeroC" class="navbar-menu">
-              <div class="navbar-end">
-                <b-navbar-item tag="router-link" to="/">Home</b-navbar-item>
-                <b-navbar-item tag="router-link" to="/businesses">Businesses</b-navbar-item>
-                <!-- <b-navbar-item tag="router-link" to="/routes">
-                API
-                </b-navbar-item>-->
-                <b-navbar-item tag="router-link" to="/people">People</b-navbar-item>
-                <b-navbar-item tag="router-link" to="/applynow">Apply Now</b-navbar-item>
-              </div>
-            </div>
           </div>
         </header>
       </div>
 
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
-        <router-view />
+        <Home />
+      </div>
+      <div class="hero-foot">
+        <nav class="tabs is-boxed is-fullwidth">
+          <div class="container">
+            <ul>
+              <li>
+                <b-navbar-item tag="router-link" to="/businesses">Businesses</b-navbar-item>
+              </li>
+              <!-- <li>
+               <b-navbar-item tag="router-link" to="/routes">
+                API
+                </b-navbar-item>
+              </li> -->
+              <li>
+                <b-navbar-item tag="router-link" to="/people">People</b-navbar-item>
+              </li>
+              <li>
+                <b-navbar-item tag="router-link" to="/applynow">Apply Now</b-navbar-item>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </section>
+    <router-view />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 export default {
+  components: {
+    Home: () => import('./views/Home'),
+  },
   computed: {
     ...mapGetters(["apiRoutes"])
   }
@@ -106,9 +121,8 @@ $colors: (
 
 // Links
 $link: $primary-invert;
-$link-invert: $primary;
-$link-focus-border: $primary-invert;
-
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
