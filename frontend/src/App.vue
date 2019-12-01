@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <section class="hero is-primary-inverted">
+    <section class="hero is-primary">
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
         <header class="navbar">
@@ -105,9 +105,9 @@ $colors: (
 );
 
 // Links
-$link: $primary;
-$link-invert: $primary-invert;
-$link-focus-border: $primary;
+$link: $primary-invert;
+$link-invert: $primary;
+$link-focus-border: $primary-invert;
 
 // Import Bulma and Buefy styles
 @import "~bulma";
