@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <section class="hero is-primary">
+    <section class="hero is-primary-inverted">
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
         <header class="navbar">
