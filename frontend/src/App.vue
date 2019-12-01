@@ -21,6 +21,10 @@ export default {
 // Set your colors
 $primary: rgb(110, 156, 1);
 $primary-invert: findColorInvert($primary);
+
+$whoabackground: rgb(190, 212, 127);
+$whoabackground-invert: findColorInvert($whoabackground);
+
 $twitter: #4099ff;
 $twitter-invert: findColorInvert($twitter);
 
@@ -65,6 +69,10 @@ $colors: (
   "twitter": (
     $twitter,
     $twitter-invert
+  ),
+  "whoabackground": (
+    $whoabackground,
+    $whoabackground-invert
   )
 );
 
