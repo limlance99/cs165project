@@ -26,6 +26,9 @@
       <div class="hero-body">
         <section class="section">
           <div class="container">
+              <figure class="image is-128x128 center">
+                <img :src="logo" />
+              </figure>
             <h1 class="title has-text-centered">Driver's License Application: The Website</h1>
             <h2 class="subtitle has-text-centered">An easy way to apply for a Driver's License.</h2>
           </div>
@@ -113,11 +116,12 @@ $link-invert: $primary-invert;
 $link-focus-border: $primary;
 $navbar-dropdown-background-color: $black;
 
-// $table-color: $whoabackground-invert;
-// $table-background-color: $whoabackground;
-// $table-cell-border: 1px solid $whoabackground-invert;
-// $table-cell-heading-color: $whoabackground;
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
