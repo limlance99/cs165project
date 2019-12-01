@@ -4,7 +4,7 @@ import axios from "axios"
 
 Vue.use(Vuex)
 
-const localTestURL = "http://localhost:1323"
+const localTestURL = ""
 
 const state = {
   allRoutes: [
