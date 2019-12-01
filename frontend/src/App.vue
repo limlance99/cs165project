@@ -6,12 +6,7 @@
         <header class="navbar">
           <div class="container">
             <div class="navbar-brand">
-              <a class="navbar-item">CS165 Project: Driver's License Businesses Database</a>
-              <span class="navbar-burger burger" data-target="navbarMenuHeroC">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
+              <h1 class="navbar-item">CS165 Project: Driver's License Businesses Database</h1>
             </div>
           </div>
         </header>
@@ -22,26 +17,18 @@
         <Home />
       </div>
       <div class="hero-foot">
-        <nav class="tabs is-boxed is-fullwidth">
-          <div class="container">
-            <ul>
-              <li>
-                <b-navbar-item tag="router-link" to="/businesses">Businesses</b-navbar-item>
-              </li>
-              <!-- <li>
-               <b-navbar-item tag="router-link" to="/routes">
-                API
-                </b-navbar-item>
-              </li> -->
-              <li>
-                <b-navbar-item tag="router-link" to="/people">People</b-navbar-item>
-              </li>
-              <li>
-                <b-navbar-item tag="router-link" to="/applynow">Apply Now</b-navbar-item>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <b-tabs type="is-toggle" expanded>
+        
+        <b-tab-item label="Businesses">
+        <Businesses />
+        </b-tab-item>
+
+        <b-tab-item label="API" tag="router-link" to="/routes"></b-tab-item>
+
+        <b-tab-item label="People" ><People /></b-tab-item>
+
+        <b-tab-item label="Apply Now"><ApplyNow /></b-tab-item>
+    </b-tabs>
       </div>
     </section>
     <router-view />
@@ -52,7 +39,11 @@
 import { mapGetters } from "vuex";
 export default {
   components: {
-    Home: () => import('./views/Home'),
+    Home: () => import("./views/Home"),
+    Businesses: () => import("./views/Businesses"),
+    People: () => import("./views/People"),
+    ApplyNow: () => import("./views/ApplyNow")
+    
   },
   computed: {
     ...mapGetters(["apiRoutes"])

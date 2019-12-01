@@ -25,8 +25,8 @@
         <section class="section">
           <div class="container">
             <h1 class="title has-text-centered">Hello</h1>
-            <h2 class="subtitle">Nothing happened :((</h2>
-            <p>Wow thank you for going through the whole thing. This doesn't work yet though so sorry for wasting your time.</p>
+            <h2 class="subtitle has-text-centered">Nothing happened :((</h2>
+            <p class="has-text-centered">Wow thank you for going through the whole thing. This doesn't work yet though so sorry for wasting your time.</p>
           </div>
         </section>
       </b-step-item>

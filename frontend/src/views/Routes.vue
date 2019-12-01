@@ -6,7 +6,7 @@
           <option v-for="(route, key) in apiRoutes" :value="route.link" :key="key">{{ route.title }}</option>
         </b-select>
       </b-field>
-        <People />
+        
       <div class="section">
         <p v-show="selectedTable != ''">Executing query: SELECT * FROM {{selectedTable}};</p>
       </div>
@@ -20,14 +20,11 @@
 </template>
 
 <script>
-import People from '../components/People';
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   props: ["link"],
-  components: {
-    People
-  },
+ 
   data: () => {
     return {
       jsons: [],
