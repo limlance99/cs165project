@@ -69,7 +69,7 @@ $colors: (
 );
 
 // Links
-$link: $primary-invert;
+$link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 // Import Bulma and Buefy styles
