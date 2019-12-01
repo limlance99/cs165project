@@ -22,7 +22,7 @@ export default {
 $primary: rgb(110, 156, 1);
 $primary-invert: findColorInvert($primary);
 
-$whoabackground: rgb(190, 212, 127);
+$whoabackground: rgb(218, 226, 194);
 $whoabackground-invert: findColorInvert($whoabackground);
 
 $twitter: #4099ff;
