@@ -1,53 +1,11 @@
 <template>
   <div id="app">
-    <section class="hero is-primary">
-      <!-- Hero head: will stick at the top -->
-      <div class="hero-head">
-        <header class="navbar">
-          <div class="container">
-            <div class="navbar-brand">
-              <h1 class="navbar-item">CS165 Project: Driver's License Businesses Database</h1>
-            </div>
-          </div>
-        </header>
-      </div>
-
-      <!-- Hero content: will be in the middle -->
-      <div class="hero-body">
-        <Home />
-      </div>
-      <div class="hero-foot">
-        <b-tabs type="is-toggle" expanded>
-        
-        <b-tab-item label="Businesses">
-        <Businesses />
-        </b-tab-item>
-
-        <b-tab-item label="API" tag="router-link" to="/routes"></b-tab-item>
-
-        <b-tab-item label="People" ><People /></b-tab-item>
-
-        <b-tab-item label="Apply Now"><ApplyNow /></b-tab-item>
-    </b-tabs>
-      </div>
-    </section>
     <router-view />
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
-  components: {
-    Home: () => import("./views/Home"),
-    Businesses: () => import("./views/Businesses"),
-    People: () => import("./views/People"),
-    ApplyNow: () => import("./views/ApplyNow")
-    
-  },
-  computed: {
-    ...mapGetters(["apiRoutes"])
-  }
 };
 </script>
 
