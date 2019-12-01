@@ -10,7 +10,7 @@
           </template>
           <template slot="start">
             <b-navbar-item tag="router-link" to="/applynow">Apply Now</b-navbar-item>
-            <b-navbar-item tag="router-link" to="/routes">Database</b-navbar-item>
+            <!-- <b-navbar-item tag="router-link" to="/routes">Database</b-navbar-item> -->
           </template>
 
           <template slot="end">
