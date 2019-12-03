@@ -26,16 +26,11 @@ func Connect() {
 		fmt.Println(err)
 	}
 	Db.AutoMigrate(
-		&restrictions{},
-		&conditions{},
 		&resandconds{},
-		&bodytype{},
 		&personaldetails{},
 		&familyrelations{},
-		&nationality{},
 		&personinformation{},
 		&businesses{},
-		&civilstatus{},
 		&dlaf{},
 	)
 }

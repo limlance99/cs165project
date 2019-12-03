@@ -1,41 +1,13 @@
-CREATE TABLE Restrictions (
-	ResCode char(8),
-	isRes1 boolean,
-	isRes2 boolean,
-	isRes3 boolean,
-	isRes4 boolean,
-	isRes5 boolean,
-	isRes6 boolean,
-	isRes7 boolean,
-	isRes8 boolean,
-	PRIMARY KEY (ResCode)
-);
-
-CREATE TABLE Conditions (
-	CondCode char(5),
-	isA boolean,
-	isB boolean,
-	isC boolean,
-	isD boolean,
-	isE boolean,
-	PRIMARY KEY (CondCode)
-);
-
-CREATE TABLE ResAndConds (
+CREATE TABLE ResAndConds
+(
 	LicenseNo varchar(13),
-	ResCode varchar(8) REFERENCES Restrictions(ResCode),
-	CondCode varchar(5) REFERENCES Conditions(CondCode),
+	ResCode varchar(8),
+	CondCode varchar(5),
 	PRIMARY KEY (LicenseNo)
 );
 
-CREATE TABLE BodyType (
-	Height numeric(5,2),
-	Weight numeric(5,2),
-	Built varchar(20),
-	PRIMARY KEY (Height, Weight)
-);
-
-CREATE TABLE PersonalDetails (
+CREATE TABLE PersonalDetails
+(
 	PDID int,
 	BloodType varchar(3),
 	Hair varchar(10),
@@ -43,54 +15,47 @@ CREATE TABLE PersonalDetails (
 	Complexion varchar(10),
 	Height numeric(5,2),
 	Weight numeric(5,2),
+	Built varchar(20),
 	isOrganDonor boolean,
-	PRIMARY KEY (PDID),
-	FOREIGN KEY (Height, Weight) REFERENCES BodyType(Height, Weight) ON DELETE CASCADE
+	PRIMARY KEY (PDID)
 );
 
-CREATE TABLE FamilyRelations (
+CREATE TABLE FamilyRelations
+(
 	TIN char(12),
 	PDID int,
 	Father varchar(100),
 	Mother varchar(100),
-	Spouse varchar(100) UNIQUE,
+	Spouse varchar(100),
+	CivilStatus varchar(20),
 	PRIMARY KEY (TIN, PDID)
 );
 
-CREATE TABLE Nationality (
-	Birthplace varchar(100),
-	Nationality varchar(50),
-	PRIMARY KEY (Birthplace)
-);
 
-CREATE TABLE PersonInformation (
+CREATE TABLE PersonInformation
+(
 	TIN char(12),
-	FullName varchar(100) UNIQUE,
+	FullName varchar(100),
 	PresAdd varchar(100),
 	Gender varchar(2),
 	BirthDate date,
 	TCPNo varchar(100),
-	Birthplace varchar(100) REFERENCES Nationality(Birthplace) ON DELETE CASCADE,
+	Birthplace varchar(100),
+	Nationality varchar(50),
 	PRIMARY KEY (TIN)
 );
 
-CREATE TABLE Businesses (
+CREATE TABLE Businesses
+(
 	BusinessName varchar(100),
 	BusinessNo varchar(20),
 	BusinessAdd varchar(100),
 	PRIMARY KEY (BusinessName)
 );
 
-CREATE TABLE CivilStatus (
-	FullName varchar(100),
-	Spouse varchar(100),
-	CivilStatus varchar(20),
-	PRIMARY KEY (FullName, Spouse),
-	FOREIGN KEY (FullName) REFERENCES PersonInformation(FullName) ON DELETE CASCADE,
-	FOREIGN KEY (Spouse) REFERENCES FamilyRelations(Spouse) ON DELETE CASCADE
-);
 
-CREATE TABLE DLAF (
+CREATE TABLE DLAF
+(
 	AppNo int,
 	PDID int REFERENCES PersonalDetails(PDID) ON DELETE CASCADE,
 	TIN varchar(12) REFERENCES PersonInformation(TIN) ON DELETE CASCADE,
@@ -104,3 +69,16 @@ CREATE TABLE DLAF (
 	PRIMARY KEY (AppNo),
 	FOREIGN KEY (TIN, PDID) REFERENCES FamilyRelations(TIN, PDID) ON DELETE CASCADE
 );
+
+CREATE VIEW peoplejobs
+as
+			(
+		SELECT fullname, licenseno, businessname, businessno
+		FROM businesses NATURAL JOIN dlaf NATURAL JOIN personinformation  
+		)
+	UNION
+		(
+		SELECT fullname, licenseno, 'N/A', 'N/A'
+		FROM dlaf NATURAL JOIN personinformation 
+		WHERE businessname is null
+		ORDER BY licenseno);

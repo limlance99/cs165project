@@ -31,32 +31,6 @@ func returnData(c echo.Context, data interface{}) error {
 	)
 }
 
-// GetRestrictions gets all the restrictions
-func GetRestrictions(c echo.Context) error {
-	var restricts []restrictions
-
-	Db.Find(&restricts)
-
-	if len(restricts) <= 0 {
-		return setErrorMessage(c)
-	}
-
-	return returnData(c, restricts)
-}
-
-// GetConditions gets all the conditions
-func GetConditions(c echo.Context) error {
-	var conds []conditions
-
-	Db.Find(&conds)
-
-	if len(conds) <= 0 {
-		return setErrorMessage(c)
-	}
-
-	return returnData(c, conds)
-}
-
 // GetResAndConds gets all the combinations of res and conds
 func GetResAndConds(c echo.Context) error {
 	var randcs []resandconds
@@ -68,19 +42,6 @@ func GetResAndConds(c echo.Context) error {
 	}
 
 	return returnData(c, randcs)
-}
-
-// GetBodyType gets all the body types
-func GetBodyType(c echo.Context) error {
-	var bodytypes []bodytype
-
-	Db.Find(&bodytypes)
-
-	if len(bodytypes) <= 0 {
-		return setErrorMessage(c)
-	}
-
-	return returnData(c, bodytypes)
 }
 
 // GetPersonalDetails gets all the details of a person
@@ -107,19 +68,6 @@ func GetFamilyRelations(c echo.Context) error {
 	}
 
 	return returnData(c, relations)
-}
-
-// GetNationality gets the nationalities
-func GetNationality(c echo.Context) error {
-	var nationalities []nationality
-
-	Db.Find(&nationalities)
-
-	if len(nationalities) <= 0 {
-		return setErrorMessage(c)
-	}
-
-	return returnData(c, nationalities)
 }
 
 // GetPersonInformation gets all the info of persons
@@ -190,29 +138,16 @@ func DeleteBusiness(c echo.Context) error {
 
 // JoinedTable testing joins
 func JoinedTable(c echo.Context) error {
-	type thing struct {
-		Licenseno    string `json:"licenseno"`
-		Fullname     string `json:"fullname"`
-		Businessname string `json:"businessname"`
-		Businessno   string `json:"businessno"`
-	}
-	var results []thing
-	Db.Table("businesses").Select("licenseno, fullname, businessname, businessno").Joins("NATURAL JOIN dlaf").Joins("NATURAL JOIN personinformation").Scan(&results)
 
-	return returnData(c, results)
-}
+	var results []peoplejobs
+	// Db.Table("businesses").Select("licenseno, fullname, businessname, businessno").Joins("NATURAL JOIN dlaf").Joins("NATURAL JOIN personinformation").Scan(&results)
+	Db.Find(&results)
 
-// GetCivilStatus gets all the Civil Statuses
-func GetCivilStatus(c echo.Context) error {
-	var statuses []civilstatus
-
-	Db.Find(&statuses)
-
-	if len(statuses) <= 0 {
+	if len(results) <= 0 {
 		return setErrorMessage(c)
 	}
 
-	return returnData(c, statuses)
+	return returnData(c, results)
 }
 
 // GetDLAF gets all the forms
