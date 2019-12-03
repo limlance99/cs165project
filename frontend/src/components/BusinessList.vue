@@ -212,6 +212,7 @@ export default {
         this.data = [];
         this.DetailMessage = "Could not connect to the database.";
     }
+    this.tableLoading = false;
   }
 };
 </script>

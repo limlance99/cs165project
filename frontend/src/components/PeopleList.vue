@@ -88,7 +88,6 @@ export default {
         this.data = [];
         this.DetailMessage = "Could not connect to the database.";
     }
-    this.data = this.ListofPeople;
     this.tableLoading = false;
   }
 };
