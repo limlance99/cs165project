@@ -110,7 +110,6 @@ const actions = {
   async deleteBusiness({ commit }, businessname) {
     businessname = businessname.trim();
     var response = await axios.delete(`${localTestURL}/api/businesses/${businessname}`)
-    console.log(response.data)
     commit("deleteBusiness", response.data.businessname)
   },
 }
