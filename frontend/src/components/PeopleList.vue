@@ -1,92 +1,95 @@
 <template>
-    <section>
-        <b-table
-            :data="data"
-            ref="table"
-            detailed
-            detail-key="licenseno"
-            @details-open="(row, index) => $buefy.toast.open(`Loading ${row.user.fullName}`)"
-            :loading="tableLoading"
-            :opened-detailed="openedDetails"
-            >
+  <section>
+    <b-table
+      :data="data"
+      ref="table"
+      :loading="tableLoading"
+      
+      backend-sorting
+        :default-sort-direction="defaultSortOrder"
+        :default-sort="[sortField, sortOrder]"
+        @sort="onSort"
+    >
+      <template slot-scope="props">
+        <b-table-column field="fullname" label="Name" sortable>
+          {{ props.row.fullname }}
+        </b-table-column>
 
-            <template slot-scope="props">
-                <b-table-column field="user.fullName" label="Name">
-                    <template>
-                        {{ props.row.fullname }}
-                    </template> 
-                </b-table-column>
+        <b-table-column field="licenseno" label="License Number" sortable>{{ props.row.licenseno }}</b-table-column>
 
-                <b-table-column field="licenseno" label="License Number">
-                    {{ props.row.licenseno }}
-                </b-table-column>
+        <b-table-column field="businessname" label="Business" sortable>{{ props.row.businessname }}</b-table-column>
 
-                <b-table-column field="businessname" label="Business">
-                    {{ props.row.businessname }}
-                </b-table-column>
+        <b-table-column
+          field="businessno"
+          label="Business Contact Number"
+        >{{ props.row.businessno }}</b-table-column>
+      </template>
 
-                <b-table-column field="businessno" label="Business Contact Number">
-                    {{ props.row.businessno }}
-                </b-table-column>
-            </template>
 
-            <template slot="detail" slot-scope="props">
-                <article class="media">
-                    <figure class="media-left">
-                        <p class="image is-64x64">
-                            <img src="/static/img/placeholder-128x128.png">
-                        </p>
-                    </figure>
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <strong>{{ props.row.fullname }} {{ props.row.licenseno }}</strong>
-                                <small>@{{ props.row.businessno }}</small>
-                                <small>31m</small>
-                                <br>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut.
-                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                            </p>
-                        </div>
-                    </div>
-                </article>
-            </template>
-
-            <template slot="empty">
-                <p v-if="tableLoading">
-                    Loading...
-                </p>
-                <p v-else>
-                    Nothing here.
-                </p>
-            </template>
-        </b-table>
-    </section>
+      <template slot="empty">
+        <p v-if="tableLoading">Loading...</p>
+        <p v-else>{{DetailMessage}}</p>
+      </template>
+    </b-table>
+  </section>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
-    export default {
-        data() {
-            return {
-                data: [],
-                openedDetails: [],
-                tableLoading: false,
-            }
-        },
-        computed: {
-            ...mapGetters(['ListofPeople']),    
-        },
-        methods: {
-            ...mapActions(['fetchTable']),
-        },
+import { mapGetters, mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      data: [],
+      tableLoading: false,
+      defaultSortOrder: 'desc',
+      sortField: 'fullname',
+      sortOrder: 'desc',
+      DetailMessage: "Nothing Here"
+    };
+  },
+  computed: {
+    ...mapGetters(["ListofPeople"])
+  },
+  methods: {
+    ...mapActions(["fetchTable"]),
 
-        async mounted() {
-            this.tableLoading = true;
-            await this.fetchTable("people");
-            this.data = this.ListofPeople;
-            this.tableLoading = false;
-        }
+    async onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.tableLoading = true;
+      var details = {
+        table: "people",
+        field,
+        order
+      };
+      await this.fetchTable(details);
+      this.data = this.ListofPeople;
+      this.tableLoading = false;
     }
+  },
+
+  async mounted() {
+    this.tableLoading = true;
+    var details = {
+      table: "people",
+      field: this.sortField,
+      order: this.sortOrder
+    };
+    let status = await this.fetchTable(details);
+    switch(status) {
+      case 500:
+        this.data = this.ListofPeople;
+        break;
+      case 409:
+        this.data = [];
+        this.DetailMessage = "Nothing Here";
+        break;
+      default:
+        this.data = [];
+        this.DetailMessage = "Could not connect to the database.";
+    }
+    this.data = this.ListofPeople;
+    this.tableLoading = false;
+  }
+};
 </script>

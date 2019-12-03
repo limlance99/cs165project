@@ -64,7 +64,12 @@ export default {
   },
   async mounted() {
     this.namesLoading = true;
-    await this.fetchTable("businesses");
+    var details = {
+      table: "businesses",
+      field: "businessname",
+      order: "asc"
+    }
+    await this.fetchTable(details);
     this.namesLoading = false;
   }
 };

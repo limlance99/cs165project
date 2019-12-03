@@ -23,13 +23,20 @@
         :data="data"
         ref="table"
         detailed
+        :show-detail-icon="false"
         detail-key="businessname"
         @details-open="(row) => closeOtherDetails(row)"
         :loading="tableLoading"
         :opened-detailed="openedDetails"
+        backend-sorting
+        :default-sort-direction="defaultSortOrder"
+        :default-sort="[sortField, sortOrder]"
+        @sort="onSort"
+        :sort-icon="sortIcon"
+        :sort-icon-size="sortIconSize"
       >
         <template slot-scope="props">
-          <b-table-column field="businessname" label="Name">{{ props.row.businessname }}</b-table-column>
+          <b-table-column field="businessname" label="Name" sortable>{{ props.row.businessname }}</b-table-column>
 
           <b-table-column field="businessno" label="Contact Number">
             <template>{{ props.row.businessno }}</template>
@@ -87,12 +94,8 @@
         </template>
 
         <template slot="empty">
-          <p v-if="tableLoading">
-                    Loading...
-                </p>
-                <p v-else>
-                    Nothing here.
-                </p>
+          <p v-if="tableLoading">Loading...</p>
+          <p v-else>{{DetailMessage}}</p>
         </template>
       </b-table>
     </section>
@@ -103,7 +106,7 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
-    AddBusiness: () => import("./AddBusiness"),
+    AddBusiness: () => import("./AddBusiness")
   },
   data() {
     return {
@@ -114,7 +117,13 @@ export default {
       updatedNumber: "",
       updatedAddress: "",
       editLoading: false,
-      NumberError: false
+      NumberError: false,
+      defaultSortOrder: "desc",
+      sortField: "businessname",
+      sortOrder: "desc",
+      sortIcon: "menu-up",
+      sortIconSize: "is-small",
+      DetailMessage: "Nothing Here."
     };
   },
   computed: {
@@ -137,6 +146,7 @@ export default {
     print(thing) {
       console.log(thing);
     },
+
     closeOtherDetails(row) {
       this.openedDetails = [row.businessname];
       this.$buefy.toast.open(`Loading ${row.businessname}`);
@@ -145,6 +155,7 @@ export default {
       this.updatedAddress = row.businessadd;
       this.editLoading = false;
     },
+
     async updateBusiness(businessname) {
       this.tableLoading = true;
       var updatedVersion = {
@@ -158,19 +169,49 @@ export default {
       this.tableLoading = false;
       this.$buefy.toast.open(`${businessname} has been updated!`);
     },
+
     async removeBusiness(businessname) {
       this.tableLoading = true;
       await this.deleteBusiness(businessname);
       this.data = this.ListofBusinesses;
       this.tableLoading = false;
       this.$buefy.toast.open(`successfully deleted ${businessname}!`);
+    },
+
+    async onSort(field, order) {
+      this.sortField = field;
+      this.sortOrder = order;
+      this.tableLoading = true;
+      var details = {
+        table: "businesses",
+        field,
+        order
+      };
+      await this.fetchTable(details);
+      this.data = this.ListofBusinesses;
+      this.tableLoading = false;
     }
   },
   async mounted() {
     this.tableLoading = true;
-    await this.fetchTable("businesses");
-    this.data = this.ListofBusinesses;
-    this.tableLoading = false;
+    var details = {
+      table: "businesses",
+      field: this.sortField,
+      order: this.sortOrder
+    };
+    let status = await this.fetchTable(details);
+    switch(status) {
+      case 500:
+        this.data = this.ListofBusinesses;
+        break;
+      case 409:
+        this.data = [];
+        this.DetailMessage = "Nothing Here";
+        break;
+      default:
+        this.data = [];
+        this.DetailMessage = "Could not connect to the database.";
+    }
   }
 };
 </script>

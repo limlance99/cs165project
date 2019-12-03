@@ -81,4 +81,4 @@ as
 		SELECT fullname, licenseno, 'N/A', 'N/A'
 		FROM dlaf NATURAL JOIN personinformation 
 		WHERE businessname is null
-		ORDER BY licenseno);
+		);

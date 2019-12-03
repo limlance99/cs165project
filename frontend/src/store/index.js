@@ -71,12 +71,22 @@ const getters = {
 }
 
 const actions = {
-  async fetchTable({ commit }, route) {
-    var response = await axios.get(`${localTestURL}/api/${route}`);
-    if (route == "businesses") {
-      commit('setBusinesses', response.data.data);
-    } else if (route == "people") {
-      commit('setPeople', response.data);
+  async fetchTable({ commit }, details) {
+    var table = details.table;
+    var field = details.field;
+    var order = details.order;
+    try {
+      var response = await axios.get(`${localTestURL}/api/${table}?field=${field}&order=${order}`);
+      if (table == "businesses") {
+        commit('setBusinesses', response.data.data);
+      } else if (table == "people") {
+        commit('setPeople', response.data);
+      }
+      return 500;
+    }
+    catch(err) {
+      if (err.response) return err.response.status;
+      else return err;
     }
   },
   async postBusiness({ commit }, data) {
@@ -90,9 +100,7 @@ const actions = {
       commit("addBusiness", response.data);
       return 500;
     } catch(err) {
-      if (err.response.status == 409) {
-        return 409;
-      }
+      return err.response.status;
     }
   },
   async putBusiness({commit}, data) {

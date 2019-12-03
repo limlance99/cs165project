@@ -19,7 +19,11 @@ func setErrorMessage(c echo.Context) error {
 	message := &errorMessage{
 		Message: "Nothing Found",
 	}
-	return c.JSON(http.StatusNotFound, message)
+	return c.JSONPretty(
+		http.StatusNotFound,
+		message,
+		"   ",
+	)
 }
 
 // returnData back to the request
@@ -84,10 +88,17 @@ func GetPersonInformation(c echo.Context) error {
 }
 
 // GetBusinesses gets all the business details
+// SELECT * FROM BUSINESSES
+// ORDER BY businessname <asc/desc>;
 func GetBusinesses(c echo.Context) error {
 	var business []businesses
 	var count int
-	Db.Order("businessname").Find(&business).Count(&count)
+
+	field := c.QueryParam("field")
+	order := c.QueryParam("order")
+
+	querystring := fmt.Sprintf("%s %s", field, order)
+	Db.Order(querystring).Find(&business).Count(&count)
 
 	if len(business) <= 0 {
 		return setErrorMessage(c)
@@ -100,6 +111,7 @@ func GetBusinesses(c echo.Context) error {
 }
 
 // PostBusiness posts a new row for businesses
+// INSERT INTO businesses VALUES (<new row>);
 func PostBusiness(c echo.Context) error {
 	body := businesses{}
 	c.Bind(&body)
@@ -114,7 +126,8 @@ func PostBusiness(c echo.Context) error {
 	return returnData(c, body)
 }
 
-// UpdateBusiness updates the details of a business
+// UpdateBusiness updates the details of a busines
+// UPDATE businesses SET <new updates>;
 func UpdateBusiness(c echo.Context) error {
 	body := businesses{}
 
@@ -125,6 +138,7 @@ func UpdateBusiness(c echo.Context) error {
 }
 
 // DeleteBusiness deletes a business
+// DELETE businesses WHERE businessname = "";
 func DeleteBusiness(c echo.Context) error {
 	businessName := c.Param("businessname")
 	business := businesses{
@@ -137,11 +151,18 @@ func DeleteBusiness(c echo.Context) error {
 }
 
 // JoinedTable selects from my view
+// SELECT * FROM peoplejobs
+// ORDER BY <order parameters>;
 func JoinedTable(c echo.Context) error {
 
 	var results []peoplejobs
 	// Db.Table("businesses").Select("licenseno, fullname, businessname, businessno").Joins("NATURAL JOIN dlaf").Joins("NATURAL JOIN personinformation").Scan(&results)
-	Db.Find(&results)
+
+	field := c.QueryParam("field")
+	order := c.QueryParam("order")
+
+	querystring := fmt.Sprintf("%s %s", field, order)
+	Db.Order(querystring).Find(&results)
 
 	if len(results) <= 0 {
 		return setErrorMessage(c)
