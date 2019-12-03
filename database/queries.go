@@ -136,7 +136,7 @@ func DeleteBusiness(c echo.Context) error {
 	return returnData(c, business)
 }
 
-// JoinedTable testing joins
+// JoinedTable selects from my view
 func JoinedTable(c echo.Context) error {
 
 	var results []peoplejobs
